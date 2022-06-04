@@ -1,10 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
+import CockTailFanApp from './cocktailfan22App/CocktailFanApp';
 
 function App() {
   return (
     <div className="App">
-     Khanh cocktailfan22 git checkin
+     <CockTailFanApp/>
     </div>
   );
 }
