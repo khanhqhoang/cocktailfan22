@@ -1,4 +1,44 @@
+.center {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
 .header {
-    width: 857px;
+    width: 950px;
     height: 150px;
 }
+.navbar {
+    width: 950px;
+    height: 50px;
+    display: grid;
+    border: solid 1px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.listingItem-header {
+    width: 950px;
+    height: 50px;
+    display: grid;
+    border: solid 1px;
+    grid-template-columns: 2fr 3fr 8fr 5fr 5fr;
+    align-content: center;
+}
+.listingItem-details {
+    width: 950px;
+    height: 120px;
+    display: grid;
+    border: solid 1px;
+    grid-template-columns: 2fr 3fr 8fr 5fr 5fr;
+}
+.img-thumbnail {
+    width: 85px;
+    height: 90px;
+}
+.color {
+    background:#DEE3E1;
+  }
+  .color:nth-child(even) {
+    background:#fff;
+  }
