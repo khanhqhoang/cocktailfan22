@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import header from './graphics/cocktail_header.jpg';
 import "./styles/CocktailFanApp.css";
 import { Link } from 'react-router-dom';
+import NavBar from './NavBar';
 
+/**
 function NavBar() {
     return(
         <div className="navbar">      
@@ -19,6 +21,7 @@ function NavBar() {
         </div>
     );
 }
+**/
 function ListingCocktailAll(props){
     const gotDrinks = props.gotDrinks.drinks;
     const drinkCat = props.drinkCat;
@@ -38,7 +41,7 @@ function ListingCocktailAll(props){
                     <p>{++idx}</p>              
                     <p>{item.idDrink}</p>
                     <p>
-                        <Link to={`/CocktailDetails/${item.idDrink}}`}>
+                        <Link to={`/CocktailDetails/${item.idDrink}`}>
                             {item.strDrink}
                         </Link>
                     </p>
@@ -70,8 +73,8 @@ function ListingCocktailItem(CocktailItem){
 export default function CocktailFanApp() {
     const [dropdown, setdropdown] = useState('Cocktail');
     const [cocktailList, setCocktailList] = useState([]);
-   // const [isLoading, setIsLoading] = useState(true);
-   // const [hasError, setHasError] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [hasError, setHasError] = useState(false);
     const dropdownChange = (event) => {
         setdropdown(event.target.value);
     };
@@ -83,10 +86,20 @@ export default function CocktailFanApp() {
             (drinks) => {
                 console.log(drinks);
                 setCocktailList(drinks);
+                setIsLoading(false);
             }
         )
-        
+        .catch((err) => {
+                setHasError(true);
+                setIsLoading(false);
+        });
     },[dropdown]);
+    if (isLoading){
+        return <p>Loading..</p>
+    }
+    if (hasError) {
+        return <p>Opps.Something goes wrong!</p>;
+    }
     //eslint-disable-next-line
     return (
         <div>
