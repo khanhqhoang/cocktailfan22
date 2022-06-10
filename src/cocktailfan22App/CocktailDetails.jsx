@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import header from './graphics/cocktail_header.jpg';
 import "./styles/CocktailFanApp.css";
 import NavBar from './NavBar';
+import Button from 'react-bootstrap/Button';
+//import db from '../db';
 
 export default function CocktailDetails(){
     const {idDrink} = useParams();
     const [cocktail, setCocktail] = useState([]);
+    //const [entries, setEntries] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [hasError, setHasError] = useState(false);    
+    const [hasError, setHasError] = useState(false);
+
     useEffect(()=> {
         const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idDrink}`;
         const getCocktail = async () => {
@@ -72,25 +75,9 @@ export default function CocktailDetails(){
     if (hasError) {
         return <p>Opps.Something wrong!</p>;
     }
-    /**
-    else
-    {
-        const {
-            name,
-            image,
-            category,
-            info,
-            glass,
-            instructions,
-            ingredients,
-        } = cocktail;
-    } 
-    **/   
+   
     return(
         <div>
-            <div>
-                <img src={header} className="header" alt=""headerimg/>
-            </div>
             <div className="">
                 <NavBar/>
             </div>
@@ -110,6 +97,7 @@ export default function CocktailDetails(){
                                 })}
                         </li>
                     </ul>
+                    <Button variant="primary">View</Button>
                 </div>            
             </div>
         </div>
