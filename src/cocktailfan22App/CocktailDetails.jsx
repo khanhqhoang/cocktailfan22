@@ -97,7 +97,7 @@ export default function CocktailDetails(){
                                 })}
                         </li>
                     </ul>
-                    <Button variant="primary">View</Button>
+                    <Button variant="primary">Add to favorite list</Button>
                 </div>            
             </div>
         </div>

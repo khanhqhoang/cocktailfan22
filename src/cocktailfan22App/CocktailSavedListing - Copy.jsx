@@ -38,7 +38,7 @@ export default function CocktailSavedListing(){
             setLoading(false);
         }
     );
-    return () => unsubscribe();
+        return () => unsubscribe();
     }, [user]);
     if (error) {
         return <p>An error occurred, please try again.</p>

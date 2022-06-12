@@ -2,47 +2,70 @@ import React, { useState, useEffect } from 'react';
 import "./styles/CocktailFanApp.css";
 import { Link } from 'react-router-dom';
 import NavBar from './NavBar';
+import Button from 'react-bootstrap/Button';
+
 
 function ListingCocktailAll(props){
     const gotDrinks = props.gotDrinks.drinks;
     const drinkCat = props.drinkCat;
-    console.log(gotDrinks);
+    //let basketcocktailList = props.basketcocktailList;
+    //let setBasketCocktailList = props.setBasketCocktailList;
+
+   const onCocktailSelect = (event) => {
+        event.preventDefault();
+        alert("I am here");
+        //setBasketCocktailList([...basketcocktailList, item]);
+        //console.log(basketcocktailList);
+    }
     return(
-        <div>
-            <div className="listingItem-header">
-                <p>Row #</p>
-                <p>Id</p>
-                <p>Name</p>
-                <p>Category</p>
-                <p>Image</p>
+        
+            <div>
+                <div className="listingItem-header">
+                    <p>Row #</p>
+                    <p>Id</p>
+                    <p>Name</p>
+                    <p>Category</p>
+                    <p>Image</p>
+                    <p>Add to Basket</p>
+                </div>
+
+                {
+
+                    gotDrinks && (gotDrinks).map((item, idx) =>
+                        <form onSubmit={onCocktailSelect}>
+                            <div key={item.idDrink} className="listingItem-details color">
+                                <p>{++idx}</p>              
+                                <p>{item.idDrink}</p>
+                                <p>
+                                    <Link to={`/CocktailDetails/${item.idDrink}`}>
+                                        {item.strDrink}
+                                    </Link>
+                                </p>
+                                <p>{drinkCat==='Ordinary_Drink'?'Ordinary Drink':'Cocktail'}</p>
+                                <p><img src={item.strDrinkThumb+"/preview"} alt="drinkImg" className="img-thumbnail"/></p>             
+                                <Button id={item.idDrink} className="select-button"variant="primary">Select</Button>
+                            </div>
+                        </form> 
+                    )
+           
+                }
+                
             </div>
-            {
-                gotDrinks && (gotDrinks).map((item, idx) =>
-                <div key={idx} className="listingItem-details color">
-                    <p>{++idx}</p>              
-                    <p>{item.idDrink}</p>
-                    <p>
-                        <Link to={`/CocktailDetails/${item.idDrink}`}>
-                            {item.strDrink}
-                        </Link>
-                    </p>
-                    <p>{drinkCat==='Ordinary_Drink'?'Ordinary Drink':'Cocktail'}</p>
-                    <p><img src={item.strDrinkThumb+"/preview"} alt="drinkImg" className="img-thumbnail"/></p>             
-                </div>      
-           )
-            }
-        </div>
+        
+        
     );
 }
 
 export default function CocktailFanApp() {
     const [dropdown, setdropdown] = useState('Cocktail');
     const [cocktailList, setCocktailList] = useState([]);
+    const [basketcocktailList, setBasketCocktailList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
     const dropdownChange = (event) => {
         setdropdown(event.target.value);
     };
+
     
 //eslint-disable-next-line
     useEffect(() => {
@@ -82,7 +105,12 @@ export default function CocktailFanApp() {
                 </label>
             </div>
             <div>
-                <ListingCocktailAll gotDrinks={cocktailList} drinkCat={dropdown}/>
+                <ListingCocktailAll 
+                    gotDrinks={cocktailList} 
+                    drinkCat={dropdown}
+                    basketcocktailList={basketcocktailList}
+                    setBasketCocktailList={setBasketCocktailList}
+                />
             </div>
         </div>
     );

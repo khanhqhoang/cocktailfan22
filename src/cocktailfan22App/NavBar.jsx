@@ -7,9 +7,7 @@ import listIcon from './graphics/list.PNG';
 import signOutIcon from './graphics/signout.jpg';
 import firebase from 'firebase/compat/app';
 
-
-
-export default function NavBar(){
+export default function NavBar(props){
     const navigate = useNavigate();
     return(
         <div className="navbar">      
@@ -34,7 +32,7 @@ export default function NavBar(){
                             firebase.auth().signOut();
                             navigate('/');
                         }}>
-                        <img src={signOutIcon} className="navbar-icon"/>
+                        <img src={signOutIcon} className="navbar-icon" alt="signOutIcon"/>
                 </button>
             </div>
         </div>

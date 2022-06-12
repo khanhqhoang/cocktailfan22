@@ -14,7 +14,8 @@ export default function Home() {
 
     return (
         <div>
-            <h5>Welcome to My Favorite Cocktail Page. Please sign in!</h5>
+            <h5>Welcome to My Favorite Cocktail Page. 
+            Please sign in with Google Account!</h5>
             <StyledFirebaseAuth
                 uiConfig={uiConfig}
                 firebaseAuth={firebase.auth()}
