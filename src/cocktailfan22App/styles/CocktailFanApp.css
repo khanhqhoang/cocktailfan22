@@ -82,3 +82,30 @@
     width: 80px;
     height: 40px;
 }
+.navbar-basket-div{
+    display: grid;
+    border: solid 1px;
+    grid-template-columns: 2fr 1fr;
+}
+.saved-listing-header-div{
+    width: 910px;
+    height: 50px;
+    display: grid;
+    border: solid 1px;
+    grid-template-columns: 2fr 4fr 2fr 3fr 3fr 5fr 5fr 2fr 2fr;
+    align-content: center;
+    background: #d958c3;
+    color: white ;
+    padding: 10px 20px;
+}
+.saved-listing-item-div{
+    width: 910px;
+    height: 130px;
+    display: grid;
+    font-size:small;
+    color:black;
+    border: solid 1px;
+    grid-template-columns: 2fr 4fr 2fr 3fr 3fr 5fr 5fr 2fr 2fr;
+    padding: 10px 20px;
+}
+

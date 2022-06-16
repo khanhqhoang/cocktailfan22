@@ -2,14 +2,30 @@ import React, {useState, useEffect} from 'react';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import db from '../db';
 import firebase from 'firebase/compat/app';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
+//import Button from 'react-bootstrap/Button';
+import trashImg from './graphics/trash.png';
+import swal from 'sweetalert';
+//import NavBar from './NavBar';
 
-export default function CocktailSavedListing(){
+export default function CocktailSavedListing(props){
 
     const [cocktailSavedEntries, setCocktailSavedEntries] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [user, setUser] = useState(null);
+   // let basketCocktailList = props.state;
+   
+    const handleDelete = (event, entry)=>{
+        event.preventDefault();
+        swal("I am here","success");
+        db.collection("cocktailListEntries").doc(entry.id).delete().then(() => {
+            swal(" Cocktail has been removed from the favorite list!", "success");
+        }).catch((error) => {
+            console.error("Error removing cocktail: ", error.message);
+        });
+    }
+
     useEffect(()=> {
         const unsubscribe = firebase.auth().onAuthStateChanged(user =>{
             console.log(user);
@@ -40,6 +56,8 @@ export default function CocktailSavedListing(){
     );
     return () => unsubscribe();
     }, [user]);
+   
+  
     if (error) {
         return <p>An error occurred, please try again.</p>
     }
@@ -49,16 +67,36 @@ export default function CocktailSavedListing(){
     }
     return (
         <div>
-            <h1>CocktailSavedListing</h1>
+
+            <div className="saved-listing-header-div">
+                <p>Id</p>
+                <p>Name</p>
+                <p>Category</p>
+                <p>Glass</p>
+                <p>Info</p>
+                <p>Ingredients</p>
+                <p>Instructions</p>
+                <p>Image</p>
+                <p>Delete</p>
+            </div>
             {cocktailSavedEntries.map(entry => {
                 return (
-                    <div key={entry.id}>
-                        <p>{entry.data().entry}</p>
-                        <span>
-                            <Link to={`/CocktailDetails/${entry.cockTailID}`}>View</Link>
-                        </span>
-                        <hr />
-                    </div>
+                    <form onSubmit={(e) =>handleDelete(e, entry)}>
+                        <div key={entry.data().id} className="saved-listing-item-div color">
+                            <p>{entry.data().id}</p>
+                            <p>{entry.data().name}</p>
+                            <p>{entry.data().Category}</p>
+                            <p>{entry.data().Glass}</p>
+                            <p>{entry.data().Info}</p>
+                            <p>{entry.data().Ingredients}</p>
+                            <p>{entry.data().Instructions}</p>
+                            <p><img src={entry.data().image} className="navbar-icon" alt="imageIcon"/></p>
+                            <span>  
+                                <input id="trashBtn" type="image" src={trashImg} alt="deleteItem" className="navbar-icon"/>                               
+                            </span>
+                            <hr />
+                        </div>
+                    </form>
                 );
             })}
         </div>

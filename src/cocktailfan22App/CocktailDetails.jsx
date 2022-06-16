@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams, useLocation } from 'react-router-dom';
 import "./styles/CocktailFanApp.css";
 import NavBar from './NavBar';
-import Button from 'react-bootstrap/Button';
-//import db from '../db';
+//import Button from 'react-bootstrap/Button';
+import homeIcon from './graphics/home.PNG';
 
-export default function CocktailDetails(){
+export default function CocktailDetails(props){
     const {idDrink} = useParams();
     const [cocktail, setCocktail] = useState([]);
     //const [entries, setEntries] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
+    const location = useLocation();
+    const basketCocktailList = location.state;
 
     useEffect(()=> {
         const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idDrink}`;
@@ -49,7 +51,6 @@ export default function CocktailDetails(){
                     ingredients,
                 };
                 
-                //setCocktail(data.drinks[0]);
                 setCocktail(cocktailItem);
                 setIsLoading(false);
                 setHasError(false);
@@ -78,9 +79,7 @@ export default function CocktailDetails(){
    
     return(
         <div>
-            <div className="">
-                <NavBar/>
-            </div>
+            <NavBar basketCocktailList={basketCocktailList}/>
             <div className="item-details">
                 <p><img src={cocktail.image} alt="drinkImg" className="img-details"/></p>
                 <div>
@@ -97,7 +96,9 @@ export default function CocktailDetails(){
                                 })}
                         </li>
                     </ul>
-                    <Button variant="primary">Add to favorite list</Button>
+                    <Link state={basketCocktailList} to="/CocktailFanApp">
+                        <img src={homeIcon} className="navbar-icon" alt="homeIcon"/>
+                    </Link>
                 </div>            
             </div>
         </div>
