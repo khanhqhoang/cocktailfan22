@@ -86,7 +86,6 @@ export default function CocktailFanApp() {
         .then((response) => response.json())
         .then(
             (drinks) => {
-                console.log(drinks);
                 setCocktailList(drinks);
                 setIsLoading(false);
             }

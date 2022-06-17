@@ -18,17 +18,18 @@ export default function CocktailSavedListing(props){
    
     const handleDelete = (event, entry)=>{
         event.preventDefault();
-        swal("I am here","success");
+        swal("Future Implementation","success");
+        /**
         db.collection("cocktailListEntries").doc(entry.id).delete().then(() => {
             swal(" Cocktail has been removed from the favorite list!", "success");
         }).catch((error) => {
             console.error("Error removing cocktail: ", error.message);
         });
+        **/
     }
 
     useEffect(()=> {
         const unsubscribe = firebase.auth().onAuthStateChanged(user =>{
-            console.log(user);
             setUser(user);
         });
         return () => unsubscribe();

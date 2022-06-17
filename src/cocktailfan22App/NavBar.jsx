@@ -23,9 +23,9 @@ export default function NavBar(props){
             </div>
             <div className="navbar-basket-div">
                 <p>Basket Item Count: {basketCocktailList.length}</p>
-                <Link to="/CocktailBasketListing">
-                    <img src={basketIcon} className="navbar-icon" alt="basketIcon"/>
-                </Link>
+                
+                <img src={basketIcon} className="navbar-icon" alt="basketIcon"/>
+
             </div>
             <div className="navbar-basket-div">
                 <p>Favorite Item List Count: {0}</p>
